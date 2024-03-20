@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.validation.annotation.Validated;
 
 import jakarta.annotation.Nonnull;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,6 +15,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.time.LocalDate;
 
@@ -41,7 +43,7 @@ public class Formulario {
 	@ManyToMany
 	private List<PilarESG> pilarESG;
 	
-	@OneToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Pergunta> perguntas;
 	
 	@ManyToOne
@@ -50,11 +52,9 @@ public class Formulario {
 	
 	@ManyToOne
 	@Nonnull
-	@NotBlank(message = "É preciso informar o responsável pelo formulário")
 	private Usuario responsavel;
 	
 	@Nonnull
-	@NotBlank(message = "É informar a emissão do objetivo")
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate emissao;
 	
