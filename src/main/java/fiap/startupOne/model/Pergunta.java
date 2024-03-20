@@ -39,6 +39,9 @@ public class Pergunta {
 	@Nullable
 	private Usuario usuario;
 	
+	@Nullable
+	private String regra;
+	
 	public void setCodigo(int codigo) {
 		this.codigo = codigo;
 	}
@@ -85,6 +88,14 @@ public class Pergunta {
 	
 	public Usuario getUsuario() {
 		return usuario;
+	}
+	
+	public void setRegra(String regra) {
+		this.regra = regra;
+	}
+	
+	public String getRegra() {
+		return regra;
 	}
 	
 }
