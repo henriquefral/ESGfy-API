@@ -2,6 +2,10 @@ package fiap.startupOne.model;
 
 import java.time.LocalDate;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -14,7 +18,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
-import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Validated
@@ -31,21 +34,18 @@ public class Acao {
 	
 	@ManyToOne
 	@Nonnull
-	@NotBlank(message = "É preciso informar o responsável pela ação")
 	private Usuario responsavel;
 	
 	@Nonnull
-	@NotBlank(message = "É informar a emissão da ação")
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate emissao;
 	
 	@Nonnull
-	@NotBlank(message = "É informar quanto do objetivo foi entrege")
 	private int quantidade;
 	
-	@ManyToOne
+	@ManyToOne()
+    @OnDelete(action = OnDeleteAction.CASCADE)
 	@Nonnull
-	@NotBlank(message = "É preciso informar o objetivo que essa ação se refere")
 	private Objetivo objetivo;
 	
 	@Nullable

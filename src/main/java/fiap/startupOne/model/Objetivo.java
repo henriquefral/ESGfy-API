@@ -1,9 +1,13 @@
 package fiap.startupOne.model;
 
 import java.time.LocalDate;
+
 import java.util.List;
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -16,7 +20,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.SequenceGenerator;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Null;
 
@@ -35,7 +42,6 @@ public class Objetivo {
 	
 	@ManyToOne
 	@Nonnull
-	@NotBlank(message = "É preciso informar o responsável pelo objetivo")
 	private Usuario responsavel;
 	
 	@Nonnull
@@ -47,17 +53,16 @@ public class Objetivo {
 	private String descricao;
 	
 	@Nonnull
-	@NotBlank(message = "É preciso informar uma pontuação para o objetivo")
+	@Min(value = 1, message = "É preciso informar uma pontuação para o objetivo")
 	private int pontos;
 	
 	@Nonnull
-	@NotBlank(message = "É preciso quantas vezes este objetivo precisa ser cumprido")
+	@Min(value = 1, message = "É preciso quantas vezes este objetivo precisa ser cumprido")
 	private int quantidade;
 	
 	@Nonnull
-	@NotBlank(message = "É preciso quantas vezes este objetivo precisa ser cumprido")
 	@ColumnDefault("0")
-	private int quantidade_entregue;
+	private int quantidadeEntregue;
 	
 	@Nonnull
 	@NotBlank(message = "É preciso informar a unidade de medida para a quantidade. Ex: Horas, dias, KG, Ml...")
@@ -66,20 +71,22 @@ public class Objetivo {
 	@ManyToMany
 	private List<PilarESG> pilarESG;
 	
+	@OneToMany(mappedBy="objetivo", cascade = CascadeType.REMOVE)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private List<Acao> acao;
+	
 	@Nonnull
-	@NotBlank(message = "É informar a emissão do objetivo")
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate emissao;
 	
-	@Null
+	@Nullable
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate finalizacao;
 	
 	@Nonnull
-	@NotBlank(message = "É informar a previsão de término")
 	@JsonFormat(pattern = "dd/MM/yyyy")
-	private LocalDate previsaoTermino;	
-	
+	private LocalDate previsaoTermino;
+		
 	public int getCodigo() {
 		return codigo;
 	}
@@ -176,4 +183,19 @@ public class Objetivo {
 		return usuario;
 	}
 	
+	
+	public void setQuantidadeEntregue(int quantidadeEntregue) {
+		this.quantidadeEntregue = quantidadeEntregue;
+	}
+	
+	public void somaQuantidadeEntregue(int quantidadeEntregue) {
+		this.quantidadeEntregue += quantidadeEntregue;
+	}
+
+	public void removeQuantidadeEntregue(int quantidadeEntregue) {
+		this.quantidadeEntregue -= quantidadeEntregue;
+	}
+	public int getQuantidadeEntregue() {
+		return quantidadeEntregue;
+	}	
 }
