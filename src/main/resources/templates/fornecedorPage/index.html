@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{baseMenu}">
+<head>
+	<title>Objetivos</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+	<div class="container-fluid p-t-10" layout:fragment="conteudo">
+		<h1 class="title p-y-10" >Fornecedor</h1>
+    	<a class="h5 btn btn-outline-dark" type="button" th:href="@{/fornecedor/criar}">Incluir</a>
+		<div class="alert alert-danger"  th:if="${msgE!=null}" th:text="${msgE}"></div>
+		<div class="alert alert-success" th:if="${msg!=null}"  th:text="${msg}" ></div>
+		<table class="table table-striped">
+	  		<tr>
+	    		<th>Nome         </th>
+				<th>Razão social </th>
+				<th>CGC          </th>
+	    		<th></th>	
+	  		</tr>
+	  			<th:block th:each="fornecedor:${fornecedores}">
+					<tr>
+		  				<td th:text="${fornecedor.nome}"></td>
+			  			<td th:text="${fornecedor.razaoSocial}"></td>
+			  			<td th:text="${fornecedor.cgc}"></td>
+			  			<td>
+							<a th:href="@{/fornecedor/alterar/}+${fornecedor.codigo}"   class="btn btn-primary btn-xs">Alterar</a>
+							<a th:href="@{/fornecedor/excluir/}+${fornecedor.codigo}"   class="btn btn-danger  btn-xs">Excluir</a>
+			  			</td>
+			  		</tr>
+				</th:block>
+    	</table>
+  	</div>
+</body>
+</html>

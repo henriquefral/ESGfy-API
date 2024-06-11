@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{baseMenu}">
+<head>
+	<title>Ações</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+	<div class="container-fluid p-t-10" layout:fragment="conteudo">
+		<h1 class="title p-y-10" >Pilares ESG</h1>
+    	<a class="h5 btn btn-outline-dark" type="button" th:href="@{/pilarESG/criar}">Incluir</a>
+		<div class="alert alert-danger"  th:if="${msgE!=null}" th:text="${msgE}"></div>
+		<div class="alert alert-success" th:if="${msg!=null}"  th:text="${msg}" ></div>
+		<table class="table table-striped">
+	  		<tr>
+	    		<th>Nome      </th>
+				<th>Objetivo  </th>
+	    		<th></th>	
+	  		</tr>
+				<tr th:each="pilarESG:${pilaresESG}">
+		  			<td th:text="${pilarESG.nome}"></td>
+		  			<td th:text="${pilarESG.objetivoSustentavel}"></td>
+		  			<td>
+						<a th:href="@{/pilarESG/alterar/}+${pilarESG.codigo}" class="btn btn-primary btn-xs">Alterar</a>
+						<a th:href="@{/pilarESG/excluir/}+${pilarESG.codigo}" class="btn btn-danger  btn-xs">Excluir</a>
+		  			</td>
+				</tr>
+    	</table>
+  	</div>
+</body>
+</html>

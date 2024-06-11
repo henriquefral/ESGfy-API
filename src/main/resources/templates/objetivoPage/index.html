@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{baseMenu}">
+<head>
+	<title>Objetivos</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+	<div class="container-fluid p-t-10" layout:fragment="conteudo">
+		<h1 class="title p-y-10" >Objetivos</h1>
+    	<a class="h5 btn btn-outline-dark" type="button" th:href="@{/objetivo/criar}">Incluir</a>
+		<div class="alert alert-danger"  th:if="${msgE!=null}" th:text="${msgE}"></div>
+		<div class="alert alert-success" th:if="${msg!=null}"  th:text="${msg}" ></div>
+		<table class="table table-striped">
+	  		<tr>
+	    		<th>Nome </th>
+				<th>Pontos </th>
+				<th>Unidade de medida</th>
+				<th>Quantidade</th>
+				<th>Quantidade entregue</th>
+				<th>Emissão</th>
+				<th>Previsão término</th>
+				<th>Término</th>	
+	    		<th></th>	
+	  		</tr>
+	  			<th:block th:each="objetivo:${objetivos}">
+					<tr>
+		  				<td th:text="${objetivo.nome}"></td>
+			  			<td th:text="${objetivo.pontos}"></td>
+			  			<td th:text="${objetivo.unidadeDeMedida}"></td>
+			  			<td th:text="${objetivo.quantidade}"></td>
+			  			<td th:text="${objetivo.quantidadeEntregue}"></td>
+			  			<td th:text="${#temporals.format(objetivo.emissao, 'dd-MMM-yyyy')}"></td>
+			  			<td th:text="${#temporals.format(objetivo.previsaoTermino, 'dd-MMM-yyyy')}"></td>
+			  			<td th:text="${#temporals.format(objetivo.finalizacao, 'dd-MMM-yyyy')}"></td>
+			  			<td>
+							<a th:href="@{/objetivo/alterar/}+${objetivo.codigo}"   class="btn btn-primary btn-xs">Alterar</a>
+							<a th:href="@{/objetivo/excluir/}+${objetivo.codigo}"   class="btn btn-danger  btn-xs">Excluir</a>
+							<a th:href="@{/objetivo/listaAcao/}+${objetivo.codigo}" class="btn btn-light   btn-xs">Ações  </a>
+			  			</td>
+			  		</tr>
+			  		<tr>
+			  			<td colspan="8" class="" th:text="${objetivo.descricao}"></td>
+					</tr>
+				</th:block>
+    	</table>
+  	</div>
+</body>
+</html>
