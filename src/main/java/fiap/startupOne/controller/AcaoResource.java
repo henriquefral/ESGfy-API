@@ -1,6 +1,5 @@
 package fiap.startupOne.controller;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +22,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import fiap.startupOne.model.Acao;
 import fiap.startupOne.model.Usuario;
 import fiap.startupOne.model.Objetivo;
+import fiap.startupOne.model.RankPilarESG;
 import fiap.startupOne.repository.AcaoRepository;
 import fiap.startupOne.repository.ObjetivoRepository;
+import fiap.startupOne.repository.RankPilarESGRepository;
+import fiap.startupOne.util.RankESGUtil;
 import jakarta.validation.Valid;
 
 @Controller
@@ -34,6 +36,9 @@ public class AcaoResource {
 
 	@Autowired
 	private AcaoRepository acaoRepository;
+	
+	@Autowired
+	private RankPilarESGRepository rankPilarESGRepository;
 	
 	@Autowired
 	private ObjetivoRepository objetivoRepository;
@@ -173,8 +178,19 @@ public class AcaoResource {
 	public Acao cadastrar(@RequestBody Acao acao){
 		
 		acao.getObjetivo().somaQuantidadeEntregue(acao.getQuantidade());
+
 		
 		if ( acao.getObjetivo().getQuantidadeEntregue() >= acao.getObjetivo().getQuantidade() ) {
+			
+			for (int i = 0; i < acao.getObjetivo().getPilarESG().size(); i++) {
+		    	
+		    	RankPilarESG rankPilarESG = RankESGUtil.getRankESG(rankPilarESGRepository, acao.getUsuario(), null, acao.getObjetivo().getPilarESG().get(i));
+		    		    	
+		    	rankPilarESG.somaPontos(acao.getObjetivo().getPontos());
+		    	
+		    	rankPilarESGRepository.save(rankPilarESG);
+		    }
+			
 			acao.getObjetivo().setFinalizacao(acao.getEmissao());
 		}
 		
@@ -189,13 +205,35 @@ public class AcaoResource {
 		Acao antigaAcao = acaoRepository.findById(acao.getCodigo()).get();
 		
 		acao.setCodigo(id);
-		
+						
 		acao.getObjetivo().removeQuantidadeEntregue(antigaAcao.getQuantidade());
+		
 		acao.getObjetivo().somaQuantidadeEntregue(acao.getQuantidade());
 		
 		if ( acao.getObjetivo().getQuantidadeEntregue() >= acao.getObjetivo().getQuantidade() ) {
+			
+			for (int i = 0; i < acao.getObjetivo().getPilarESG().size(); i++) {
+		    	
+		    	RankPilarESG rankPilarESG = RankESGUtil.getRankESG(rankPilarESGRepository, acao.getUsuario(), null, acao.getObjetivo().getPilarESG().get(i));
+		    		    	
+		    	rankPilarESG.removePontos(antigaAcao.getObjetivo().getPontos());
+		    	rankPilarESG.somaPontos(acao.getObjetivo().getPontos());
+		    	
+		    	rankPilarESGRepository.save(rankPilarESG);
+		    }
+			
 			acao.getObjetivo().setFinalizacao(acao.getEmissao());
 		} else {
+			
+			for (int i = 0; i < acao.getObjetivo().getPilarESG().size(); i++) {
+		    	
+		    	RankPilarESG rankPilarESG = RankESGUtil.getRankESG(rankPilarESGRepository, acao.getUsuario(), null, acao.getObjetivo().getPilarESG().get(i));
+		    		    	
+		    	rankPilarESG.removePontos(acao.getObjetivo().getPontos());
+		    	
+		    	rankPilarESGRepository.save(rankPilarESG);
+		    }
+			
 			acao.getObjetivo().setFinalizacao(null);
 		}
 		
@@ -210,6 +248,15 @@ public class AcaoResource {
 		Acao acao = acaoRepository.findById(codigo).get();
 		
 		acao.getObjetivo().removeQuantidadeEntregue(acao.getQuantidade());
+				
+	    for (int i = 0; i < acao.getObjetivo().getPilarESG().size(); i++) {
+	    	
+	    	RankPilarESG rankPilarESG = RankESGUtil.getRankESG(rankPilarESGRepository, acao.getUsuario(), null, acao.getObjetivo().getPilarESG().get(i));
+	    	
+	    	rankPilarESG.removePontos(acao.getQuantidade());
+
+	    	rankPilarESGRepository.save(rankPilarESG);
+	    }
 		
 		if ( acao.getObjetivo().getQuantidadeEntregue() < acao.getObjetivo().getQuantidade() ) {
 			acao.getObjetivo().setFinalizacao(null);

@@ -36,7 +36,7 @@ public class Fornecedor {
 	
 	@Nonnull
 	@NotBlank(message = "É preciso digitar o cadastro geral de contribuintes do fornecedor")
-	@Size(min = 14, max = 18, message = "Favor, ele deve ter 14 dígitos se for um CPF e 18 se for CNPJ")
+	@Size(min = 11, max = 14, message = "Favor, ele deve ter 14 dígitos se for um CPF e 18 se for CNPJ")
 	private String cgc;
 	
 	public void setCodigo(int codigo) {
@@ -64,6 +64,11 @@ public class Fornecedor {
 	}
 	
 	public void setCgc(String cgc) {
+		
+		cgc = cgc.replace(".", "");
+		cgc = cgc.replace("-", "");
+		cgc = cgc.replace("/", "");
+		
 		this.cgc = cgc;
 	}
 	

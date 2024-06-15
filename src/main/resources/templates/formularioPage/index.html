@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{baseMenu}">
+<head>
+	<title>Formulários</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+	<div class="container-fluid p-t-10" layout:fragment="conteudo">
+		<h1 class="title p-y-10" >Formulários</h1>
+    	<a class="h5 btn btn-outline-dark" type="button" th:href="@{/formulario/criar}">Incluir</a>
+		<div class="alert alert-danger"  th:if="${msgE!=null}" th:text="${msgE}"></div>
+		<div class="alert alert-success" th:if="${msg!=null}"  th:text="${msg}" ></div>
+		<table class="table table-striped">
+	  		<tr>
+	    		<th>Nome </th>
+				<th>Responsável </th>
+				<th>Emissão</th>
+				<th>Finalização</th>			
+	    		<th></th>	
+	  		</tr>
+	  			<th:block th:each="formulario:${formularios}">
+					<tr>
+		  				<td th:text="${formulario.nome}"></td>
+			  			<td th:text="${formulario.responsavel.nome}"></td>
+			  			<td th:text="${#temporals.format(formulario.emissao, 'dd-MMM-yyyy')}"></td>
+			  			<td th:text="${#temporals.format(formulario.finalizacao, 'dd-MMM-yyyy')}"></td>
+			  			<td>
+							<a th:href="@{/formulario/alterar/}+${formulario.codigo}"       class="btn btn-primary btn-xs">Alterar</a>
+							<a th:href="@{/formulario/excluir/}+${formulario.codigo}"       class="btn btn-danger  btn-xs">Excluir</a>
+							<a th:href="@{/formulario/listaPergunta/}+${formulario.codigo}" class="btn btn-light   btn-xs">Perguntas</a>
+							<a th:href="@{/formulario/responder/}+${formulario.codigo}"     class="btn btn-light   btn-xs">Responder</a>
+			  			</td>
+			  		</tr>
+			  		<tr>
+			  			<td colspan="4" class="" th:text="${formulario.descricao}"></td>
+					</tr>
+				</th:block>
+    	</table>
+  	</div>
+</body>
+</html>

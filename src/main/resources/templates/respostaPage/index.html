@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{baseMenu}">
+<head>
+	<title>Responder</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+	<div class="container-fluid p-t-10" layout:fragment="conteudo">
+		<h1 class="login100-form-title p-b-26 p-y-10" th:text="'Responda o formulário '+${formulario.nome}"></h1>
+		<div class="alert alert-danger"  th:if="${msgE!=null}" th:text="${msgE}"></div>
+		<div class="alert alert-success" th:if="${msg!=null}"  th:text="${msg}" ></div>		
+		<form th:action="@{/resposta/responder}" th:object="${respostasForm}" class="login100-form validate-form" method="post">
+			<th:block th:each="respostaForm, itemStat : *{respostas}">
+		
+				<span class="login200-ask-title p-b-26"    th:text="'Pergunta: '+${perguntas[__itemStat.index__].titulo}+' '+${respostaForm.codigo}"></span>		
+				<span class="login200-ask-subTitle p-b-26" th:text="${perguntas[__itemStat.index__].subTitulo}"></span>
+				
+				<div class="wrap-input200 p-b-3" th:if="${perguntas[__itemStat.index__].tipo == '1'}" data-validate="Digite a resposta!">
+					<textArea class="input100" th:field="*{respostas[__${itemStat.index}__].resposta}" name="resposta"></textArea>
+					<span class="focus-input100" data-placeholder="Resposta"></span>
+				</div>
+				
+				<div class="wrap-input300 p-b-3" th:if="${perguntas[__itemStat.index__].tipo == '2'}">
+					<div class="form-check form-check-inline">
+	  				  <input class="form-check-input radioext"  type="radio" th:field="*{respostas[__${itemStat.index}__].resultado}" value="1" th:checked="${respostaForm.resultado == '1'}">
+	  				  <span class="spacer"></span>
+					  <input class="form-check-input radiomed"  type="radio" th:field="*{respostas[__${itemStat.index}__].resultado}" value="2" th:checked="${respostaForm.resultado == '2'}">
+					  <span class="spacer"></span>
+					  <input class="form-check-input radiocent" type="radio" th:field="*{respostas[__${itemStat.index}__].resultado}" value="3" th:checked="${respostaForm.resultado == '3' || respostaForm.resultado == null}">
+					  <span class="spacer"></span> 
+					  <input class="form-check-input radiomed"  type="radio" th:field="*{respostas[__${itemStat.index}__].resultado}" value="4" th:checked="${respostaForm.resultado == '4'}">
+					  <span class="spacer"></span>
+					  <input class="form-check-input radioext"  type="radio" th:field="*{respostas[__${itemStat.index}__].resultado}" value="5" th:checked="${respostaForm.resultado == '5'}">
+					</div>
+				</div>
+				
+				<div class="wrap-input200 p-b-3" data-validate="Digite os pontos!">
+					<input class="input100" th:field="*{respostas[__${itemStat.index}__].pontos}" type="number">
+					<span class="focus-input100" data-placeholder="Pontos"></span>
+				</div>
+				
+				<input th:name="'respostas['+${__itemStat.index__}+'].formulario'"  type="hidden" th:value="${formulario.codigo}">
+				<input th:name="'respostas['+${__itemStat.index__}+'].pergunta'"    type="hidden" th:value="${perguntas[__itemStat.index__].codigo}">
+				<input th:name="'respostas['+${__itemStat.index__}+'].usuario'"     type="hidden" th:value="${perguntas[__itemStat.index__].usuario.codigo}">
+				<input th:name="'respostas['+${__itemStat.index__}+'].responsavel'" type="hidden" th:value="${usuario.codigo}">
+				<input th:name="'respostas['+${__itemStat.index__}+'].codigo'"  th:if="${respostaForm.codigo > 0}" type="hidden" th:value="${respostaForm.codigo}">
+    		</th:block>
+    		<div class="container-login100-form-btn">
+				<div class="row">
+					<div class="col p-x-5"> 
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn">
+							</div>
+							<button class="login100-form-btn">
+								Responder perguntas
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+    	</form>
+  	</div>
+</body>
+</html>

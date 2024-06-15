@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{baseMenu}">
+<head>
+	<title>Ações</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+	<div class="container-fluid p-t-10" layout:fragment="conteudo">
+		<h1 class="title p-y-10" th:text="'Ações para o objetivo '+${objetivo.nome}"></h1>
+    	<a class="h5 btn btn-outline-dark" type="button" th:if="${objetivo.quantidade > objetivo.quantidadeEntregue}" th:href="@{/acao/criar/}+${objetivo.codigo}">Incluir</a>
+		<div class="alert alert-danger"  th:if="${msgE!=null}" th:text="${msgE}"></div>
+		<div class="alert alert-success" th:if="${msg!=null}"  th:text="${msg}" ></div>
+		<table class="table table-striped">
+	  		<tr>
+	    		<th>Responsável        </th>
+				<th>Emissão            </th>
+				<th>Quantidade         </th>
+				<th>Descrição          </th>
+	    		<th></th>	
+	  		</tr>
+				<tr th:each="acao:${acoes}">
+		  			<td th:text="${acao.responsavel.nome}"></td>
+		  			<td th:text="${#temporals.format(acao.emissao, 'dd-MMM-yyyy')}"></td>
+		  			<td th:text="${acao.quantidade}"></td>
+		  			<td th:text="${acao.descricao}"></td>
+		  			<td>
+						<a th:href="@{/acao/alterar/}+${acao.codigo}" class="btn btn-primary btn-xs">Alterar</a>
+						<a th:href="@{/acao/excluir/}+${acao.codigo}" class="btn btn-danger  btn-xs">Excluir</a>
+		  			</td>
+				</tr>
+    	</table>
+  	</div>
+</body>
+</html>

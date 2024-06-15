@@ -13,8 +13,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
-import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Validated
@@ -24,23 +24,16 @@ public class Resposta {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "resposta")
 	private int codigo;
-	
+		
 	@Nonnull
-	@ManyToOne
-	@NotBlank(message = "É preciso identificar qual pergunta é o formulário está sendo respondido")
-	private Formulario formulario;
-	
-	@Nonnull
-	@ManyToOne
-	@NotBlank(message = "É preciso identificar qual pergunta do formulário está sendo respondida")
+	@OneToOne
 	private Pergunta pergunta;
 	
-	@Nonnull
-	@NotBlank(message = "É preciso digitar uma resposta")
+	
+	@Nonnull	
 	private String resposta;
 	
 	@Nonnull
-	@NotBlank(message = "É informar a emissão da resposta")
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate emissao;
 	
@@ -53,6 +46,9 @@ public class Resposta {
 	@ManyToOne
 	@Nullable
 	private Usuario usuario;
+	
+	@ManyToOne
+	private Usuario responsavel;
 		
 	public void setCodigo(int codigo) {
 		this.codigo = codigo;
@@ -60,14 +56,6 @@ public class Resposta {
 	
 	public int getCodigo() {
 		return codigo;
-	}
-	
-	public void setDocumento(Formulario formulario) {
-		this.formulario = formulario;
-	}
-	
-	public Formulario getDocumento() {
-		return formulario;
 	}
 	
 	public void setPergunta(Pergunta pergunta) {
@@ -84,14 +72,6 @@ public class Resposta {
 	
 	public Usuario getUsuario() {
 		return usuario;
-	}
-	
-	public void setFormulario(Formulario formulario) {
-		this.formulario = formulario;
-	}
-	
-	public Formulario getFormulario() {
-		return formulario;
 	}
 	
 	public void setResposta(String resposta) {

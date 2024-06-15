@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	<head>
+		<meta charset="UTF-8">
+		<title layout:title-pattern="$LAYOUT_TITLE | $CONTENT_TITLE">ESGfy</title>
+		<link rel="stylesheet" type="text/css"  th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+		<link rel="stylesheet" type="text/css"  th:href="@{/webjars/select2/dist/css/select2.min.css}">
+		<link rel="stylesheet" type="text/css"  th:href="@{/webjars/font-awesome/css/font-awesome.min.css}">
+		<link rel="stylesheet" type="text/css"  th:href="@{/webjars/material-design-iconic-font/dist/css/material-design-iconic-font.min.css}">
+		<link rel="stylesheet" type="text/css"  th:href="@{/webjars/animate.css/animate.css}">
+		<link rel="stylesheet" type="text/css"  th:href="@{/webjars/css-hamburgers/dist/hamburgers.min.css}">
+		<link rel="stylesheet" type="text/css"  th:href="@{/webjars/animsition/dist/css/animsition.min.css}">
+		<link rel="stylesheet" type="text/css"  th:href="@{/webjars/bootstrap-daterangepicker/daterangepicker.css}">
+		<link rel="stylesheet" type="text/css"  th:href="@{/style/baseLoginCss/main.css}">
+		<link rel="stylesheet" type="text/css"  th:href="@{/style/css/util.css}">
+	</head>
+	<body>
+		<div layout:fragment="conteudo"></div>
+		<!--<hr>-->		
+		<script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
+		<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+		<script th:src="@{/webjars/animsition/dist/js/animsition.min.js}"></script>
+		<script th:src="@{/webjars/popper.js/1.14.1/umd/popper.js}"></script>
+		<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+		<script th:src="@{/webjars/select2/dist/js/select2.min.js}"></script>
+		<script th:src="@{/webjars/momentjs/min/moment.min.js}"></script>
+		<script th:src="@{/webjars/bootstrap-daterangepicker/daterangepicker.js}"></script>
+		<script th:src="@{/webjars/jquery-mask-plugin/dist/jquery.mask.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/baseLoginJs/main.js}"></script>
+	</body>
+</html>

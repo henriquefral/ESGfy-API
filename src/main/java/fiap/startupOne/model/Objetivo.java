@@ -4,7 +4,6 @@ import java.time.LocalDate;
 
 import java.util.List;
 
-import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -25,7 +24,6 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Null;
 
 @Entity
 @Validated
@@ -69,6 +67,7 @@ public class Objetivo {
 	private String unidadeDeMedida;
 	
 	@ManyToMany
+	@Nonnull()
 	private List<PilarESG> pilarESG;
 	
 	@OneToMany(mappedBy="objetivo", cascade = CascadeType.REMOVE)

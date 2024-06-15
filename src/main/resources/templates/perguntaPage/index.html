@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{baseMenu}">
+<head>
+	<title>Perguntas</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+	<div class="container-fluid p-t-10" layout:fragment="conteudo">
+		<h1 class="title p-y-10" th:text="'Perguntas para o formulário '+${formulario.nome}"></h1>
+		<div class="alert alert-danger"  th:if="${msgE!=null}" th:text="${msgE}"></div>
+		<div class="alert alert-success" th:if="${msg!=null}"  th:text="${msg}" ></div>
+		<form th:action="@{/pergunta/criar}" th:object="${pergunta}" class="login100-form validate-form" method="post">
+			<table class="table table-striped">
+		  		<tr>
+		    		<th>Item </th>
+					<th>Tíulo</th>
+					<th>Subtítulo</th>
+					<th>Tipo</th>
+					<th>Pontos</th>			
+		    		<th></th>
+		  		</tr>
+				<tr>
+		  			<td><div class="wrap-input100 validate-input" data-validate = "Digite o item">   <input class="input100" th:field="*{item}"      name="item"/></div></td>
+		  			<td><div class="wrap-input100 validate-input" data-validate = "Digite o título"> <input class="input100" th:field="*{titulo}"    name="titulo"   /></div></td>
+		  			<td><div class="wrap-input100 validate-input" data-validate = "Digite o sub-título"> <input class="input100" th:field="*{subTitulo}" name="subTitulo"/></div></td>
+		  			<td> 
+			  			<select class="custom-select input100" th:field="*{tipo}" name="tipo">
+		                       <option selected="selected" value="1">Livre digitação </option>
+		                       <option value="2">                    Escala          </option>
+		                </select>
+		            </td>
+		            <td><div class="wrap-input100 validate-input" data-validate = "Digite os pontos"><input class="input100" th:field="*{pontos}" name="pontos"/></div></td>
+		            <td>
+		            	<input class="input100" name="formulario" type="hidden" th:value="${formulario.codigo}">
+		            	<button class="h5 btn btn-outline-dark" type="submit">Incluir</button>
+		            </td>
+				</tr>
+				<th:block th:each="pergunta:${perguntas}">
+					<tr>
+		  				<th scope="row"><input th:value="${pergunta.item}" disabled="disabled"/></th>
+		  				<td><input th:value="${pergunta.titulo}" disabled="disabled"/></td>
+		  				<td><input th:value="${pergunta.subTitulo}" disabled="disabled"/></td>
+		  				<td> 
+			  				<select class="custom-select" disabled="disabled">
+		                       	<option th:if="${pergunta.tipo == '1'}" selected="selected" value="1">Livre digitação </option>
+		                       	<option th:if="${pergunta.tipo != '1'}" value="1">Livre digitação </option>
+		                       	<option th:if="${pergunta.tipo == '2'}" selected="selected" value="2">Escala          </option>
+		                       	<option th:if="${pergunta.tipo != '2'}" value="2">Escala          </option>
+		                   	</select>
+		                </td>
+		                <td><input th:value="${pergunta.pontos}" disabled="disabled"/></td>
+						<td>
+							<button th:onclick="|perguntaId.value = ${pergunta.codigo}|" type="button" data-toggle="modal" 
+							 		data-target="#excluirModal" class="btn btn-danger btn-xs">Excluir</button >
+						</td>						
+				  	</tr>
+				</th:block>
+	    	</table>
+    	</form>
+    	<div class="modal fade" id="excluirModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Deseja excluir a pergunta?</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form th:action="@{/pergunta/excluir}" method="post" th:object="${pergunta}">
+								<input type="hidden" name="codigo" id="perguntaId">
+								<button type="button" class="btn btn-secondary"
+										data-dismiss="modal">Não</button>
+								<button type="submit" class="btn btn-danger">Sim</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+  	</div>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	<head>
+		<title>Pilares ESG</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css"  th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+		<link rel="stylesheet" type="text/css"  th:href="@{/webjars/select2/dist/css/select2.min.css}">
+		<link rel="stylesheet" type="text/css"  th:href="@{/webjars/font-awesome/css/font-awesome.min.css}">
+		<link rel="stylesheet" type="text/css"  th:href="@{/webjars/material-design-iconic-font/dist/css/material-design-iconic-font.min.css}">
+		<link rel="stylesheet" type="text/css"  th:href="@{/webjars/animate.css/animate.css}">
+		<link rel="stylesheet" type="text/css"  th:href="@{/webjars/css-hamburgers/dist/hamburgers.min.css}">
+		<link rel="stylesheet" type="text/css"  th:href="@{/webjars/animsition/dist/css/animsition.min.css}">
+		<link rel="stylesheet" type="text/css"  th:href="@{/webjars/bootstrap-daterangepicker/daterangepicker.css}">
+		<link rel="stylesheet" type="text/css"  th:href="@{/style/registroCss/main.css}">
+		<link rel="stylesheet" type="text/css"  th:href="@{/style/css/util.css}">
+	</head>
+	<body>
+		<div class="limiter" layout:fragment="conteudo">
+			<div class="container-login100">
+				<div class="wrap-login100">
+					<div class="alert alert-danger"  th:if="${msgE!=null}" th:text="${msgE}"></div>
+					<div class="alert alert-success" th:if="${msg!=null}"  th:text="${msg}" ></div>
+					<form th:action="@{/pilarESG/excluir}" th:object="${pilarESG}" class="login100-form validate-form" method="post">
+					
+						<div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+							<p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+						</div>
+						
+						<span class="login100-form-title p-b-20">
+							Deseja realmente excluir o pilar ESG?
+						</span>
+
+						<div class="wrap-input100 validate-input p-b-3" data-validate="Informe o nome!">
+							<input class="input100 has-val" th:field="*{nome}" type="text" name="nome">
+							<span class="focus-input100" data-placeholder="Nome"></span>
+						</div>
+						
+						<div class="wrap-input100 validate-input p-b-3" data-validate="Digite uma breve descrição!">
+							<textArea class="input100" th:field="*{objetivoSustentavel}" name="objetivoSustentavel" readonly="readonly"></textArea>
+							<span class="focus-input100" data-placeholder="Objetivo sustentável do pilar"></span>
+						</div>
+																			
+						<div class="d-none">
+							<input class="input100" name="usuario" type="text" th:value="${pilarESG.usuario.codigo}" >
+						</div>
+						
+						<div class="d-none">
+							<input class="input100" name="codigo" type="text" th:value="${pilarESG.codigo}" >
+						</div>
+						
+						<div class="container-login100-form-btn">
+							<div class="row">
+								<div class="col p-x-5"> 
+									<div class="wrap-login100-form-btn">
+										<div class="login100-form-bgbtn">
+										</div>
+										<button class="login100-form-btn">
+											Excluir
+										</button>
+									</div>
+								</div>
+								<div class="col p-x-5"> 
+									<div class="wrap-login100-form-btn">
+										<div class="login100-form-bgbtn">
+										</div>
+										<a class="login100-form-btn" th:href="@{/usuario/listaPilarESG}"> Cancelar </a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div id="dropDownSelect1"></div>
+		<script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
+		<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+		<script th:src="@{/webjars/animsition/dist/js/animsition.min.js}"></script>
+		<script th:src="@{/webjars/popper.js/1.14.1/umd/popper.js}"></script>
+		<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+		<script th:src="@{/webjars/select2/dist/js/select2.min.js}"></script>
+		<script th:src="@{/webjars/momentjs/min/moment.min.js}"></script>
+		<script th:src="@{/webjars/bootstrap-daterangepicker/daterangepicker.js}"></script>
+		<script th:src="@{/webjars/jquery-mask-plugin/dist/jquery.mask.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/registroJs/main.js}"></script>
+	</body>
+</html>

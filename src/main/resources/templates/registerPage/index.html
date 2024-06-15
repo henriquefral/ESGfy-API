@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{baseLogin}">
+<head>
+	<title>Registro</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+	
+	<div class="limiter" layout:fragment="conteudo">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<form th:action="@{/usuario/cadastrar}" th:object="${usuario}" class="login100-form validate-form" method="post" >
+					<span class="login100-form-title">
+						Faça seu cadastro!
+					</span>
+					<div class="text-center p-t-10 p-b-26">
+						<span class="txt1">
+							Já tem uma conta?
+						</span>
+
+						<a class="txt2" th:href="@{/usuario/login}">
+							Faça o login!
+						</a>
+					</div>
+					<span class="login100-form-title p-b-48">
+						<img th:src="@{/images/app/logo.png}" alt="logo" style="width:220px;height:83px;">
+					</span>
+					<div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+						<p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+					</div>
+					<div class="wrap-input100 validate-input" data-validate = "Digite um email válido! Por ex.: a@b.c">
+						<input th:field="*{email}" class="input100" type="text" name="email">
+						<span class="focus-input100" data-placeholder="Email"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate="Digite uma senha!">
+						<span class="btn-show-pass">
+							<i class="zmdi zmdi-eye"></i>
+						</span>
+						<input th:field="*{senha}" class="input100" type="password" name="senha">
+						<span class="focus-input100" data-placeholder="Senha"></span>
+					</div>
+					
+					<div class="wrap-input100 validate-input" data-validate = "Digite um nome!">
+						<input th:field="*{nome}" class="input100" type="text" name="nome">
+						<span class="focus-input100" data-placeholder="Nome"></span>
+					</div>
+					
+					<div class="wrap-input100 validate-input" data-validate = "Digite uma razão social!">
+						<input th:field="*{razaoSocial}" class="input100" type="text" name="razaoSocial">
+						<span class="focus-input100" data-placeholder="Razão social"></span>
+					</div>
+					
+					<div class="wrap-input100 validate-input" data-validate = "Não pode ficar vazio!">
+						<input th:field="*{cgc}" class="input100 cgc" type="text" name="cgc" maxlength="14">
+						<span class="focus-input100" data-placeholder="CPF/CNPJ"></span>
+					</div>
+					
+					<div class="d-none">
+						<input class="input100" name="tipo" type="text" value="1">
+					</div>
+					
+					<div class="container-login100-form-btn">
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							<button class="login100-form-btn">
+								Cadastrar
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+
+	<div id="dropDownSelect1"></div>
+</body>
+</html>

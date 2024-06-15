@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -25,6 +24,7 @@ import fiap.startupOne.repository.PilarESGRepository;
 import fiap.startupOne.repository.ObjetivoRepository;
 import fiap.startupOne.repository.UsuarioRepository;
 import fiap.startupOne.repository.FornecedorRepository;
+import fiap.startupOne.repository.FormularioRepository;
 
 @Controller
 @RequestMapping("usuario")
@@ -42,6 +42,25 @@ public class UsuarioResource {
 	
 	@Autowired
 	private FornecedorRepository fornecedorRepository;
+	
+	@Autowired
+	private FormularioRepository formularioRepository;
+
+	@GetMapping("listaFormulario")
+	public String montaNavegacaoFormulario(Model model, RedirectAttributes redirectAttributes){
+		
+		Usuario usuario = (Usuario) model.getAttribute("usuario");
+		
+		if ( usuario == null ) {
+			redirectAttributes.addFlashAttribute("msgE","É preciso fazer o login!");
+			
+			return "redirect:login";
+		}
+		
+		model.addAttribute("formularios", formularioRepository.findByUsuario(usuario));
+		
+		return "formularioPage/index";
+	}
 	
 	@GetMapping("listaFornecedor")
 	public String montaNavegacaoFornecedor(Model model, RedirectAttributes redirectAttributes){
@@ -129,7 +148,7 @@ public class UsuarioResource {
 	
 	@PostMapping("login")
 	@ResponseBody
-	public Usuario logar(Usuario usuario, Model model){
+	public Usuario logar(@RequestBody Usuario usuario, Model model){
 			
 		return usuarioRepository.findByEmailAndSenha(usuario.getEmail(), usuario.getSenha());
 	}
@@ -170,8 +189,6 @@ public class UsuarioResource {
 	@ResponseBody
 	public Usuario cadastrar(@RequestBody Usuario usuario){
 		
-		usuario.convertCgc();
-
 		return usuarioRepository.save(usuario);
 	}
 	

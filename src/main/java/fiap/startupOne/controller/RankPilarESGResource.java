@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import fiap.startupOne.model.RankPilarESG;
+import fiap.startupOne.model.Usuario;
 import fiap.startupOne.repository.RankPilarESGRepository;
+import fiap.startupOne.repository.UsuarioRepository;
 
 @RestController
 @RequestMapping("rankPilarESG")
@@ -24,14 +26,23 @@ public class RankPilarESGResource {
 	@Autowired
 	private RankPilarESGRepository rankPilarESGRepository;
 	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
+	
 	@GetMapping
 	public List<RankPilarESG> listar(){
 		return rankPilarESGRepository.findAll();
 	}
-	
 	@GetMapping("{codigo}")
 	public RankPilarESG buscar(@PathVariable int codigo) {
 		return rankPilarESGRepository.findById(codigo).get();
+	}
+	@GetMapping("usuario/{codigoUsuario}")
+	public List<RankPilarESG> buscarPorUsuario(@PathVariable int codigoUsuario) {
+		
+		Usuario usuario = usuarioRepository.findById(codigoUsuario).get();
+		
+		return rankPilarESGRepository.findByUsuarioOrderByPontosDesc(usuario);
 	}
 	@ResponseStatus(code = HttpStatus.CREATED)
 	@PostMapping
