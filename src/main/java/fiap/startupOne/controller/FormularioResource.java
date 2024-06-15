@@ -27,6 +27,7 @@ import fiap.startupOne.repository.FormularioRepository;
 import fiap.startupOne.repository.PilarESGRepository;
 import fiap.startupOne.repository.RespostaRepository;
 import fiap.startupOne.repository.PerguntaRepository;
+import fiap.startupOne.repository.FornecedorRepository;
 import fiap.startupOne.util.RespostaCreationDto;
 import jakarta.validation.Valid;
 
@@ -46,6 +47,9 @@ public class FormularioResource {
 	
 	@Autowired
 	private RespostaRepository respostaRepository;
+	
+	@Autowired
+	private FornecedorRepository fornecedorRepository;
 	
 	@GetMapping("responder/{codigo}")
 	public String redirecionaReposta(@PathVariable int codigo, Formulario formulario, Resposta resposta, Model model, RedirectAttributes redirectAttributes) {
@@ -198,8 +202,11 @@ public class FormularioResource {
 			return "redirect:/usuario/login";
 		}
 		
-		model.addAttribute("formulario", new Formulario());
-		model.addAttribute("pilaresESG", pilarESGRepository.findByUsuario(usuario));
+		
+		
+		model.addAttribute("formulario"  , new Formulario());
+		model.addAttribute("pilaresESG"  , pilarESGRepository.findByUsuario(usuario));
+		model.addAttribute("fornecedores", fornecedorRepository.findByUsuario(usuario));
 		
 		return "formularioPage/registro";
 	}

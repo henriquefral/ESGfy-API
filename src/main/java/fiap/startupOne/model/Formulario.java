@@ -38,6 +38,9 @@ public class Formulario {
 	@Nullable
 	private String descricao;
 	
+	@ManyToOne
+	private Fornecedor fornecedor; 
+	
 	@ManyToMany(fetch = FetchType.EAGER)
 	private List<PilarESG> pilarESG;
 		
@@ -120,5 +123,14 @@ public class Formulario {
 	public Usuario getUsuario() {
 		return usuario;
 	}
+	
+	public void setFornecedor(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
+	}
+	
+	public Fornecedor getFornecedor() {
+		return fornecedor;
+	}
+	
 }
 

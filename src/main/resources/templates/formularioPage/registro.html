@@ -46,11 +46,19 @@
 							</div>
 						</div>
 	
-						<div class="wrap-input100 validate-input" data-validate="Digite uma breve descrição!">
-							<textArea class="input100" th:field="*{descricao}" name="descricao"></textArea>
-							<span class="focus-input100-area" data-placeholder="Descricao"></span>
+						<div class="row">
+							<div class="col p-x-5 pb-2 login200-form-title labelcheckbox" data-validate="Informe ao menos um pilar ESG!">
+								Se para um fornecedor, escolha:
+							</div>
 						</div>
-
+						<div class="wrap-input100">
+							<select class="custom-select" th:field="*{fornecedor}">
+								<option th:value="0" th:text="Nenhum">
+    							<option th:each="fornecedor : ${fornecedores}" th:value="${fornecedor.codigo}" th:text="${fornecedor.nome}">
+    							</option>
+							</select>
+						</div>
+						
 						<div class="row">
 							<div class="col-4 p-x-5 pb-2 login200-form-title labelcheckbox" data-validate="Informe ao menos um pilar ESG!">
 								Pilares ESG:
@@ -70,7 +78,13 @@
 								</div> 
 							</th:block>
 						</div>
-											
+						
+	
+						<div class="wrap-input100 validate-input" data-validate="Digite uma breve descrição!">
+							<textArea class="input100" th:field="*{descricao}" name="descricao"></textArea>
+							<span class="focus-input100" data-placeholder="Descricao"></span>
+						</div>
+				
 						<div class="d-none">
 							<input class="input100" name="responsavel" type="text" th:value="${usuario.codigo}" >
 						</div>

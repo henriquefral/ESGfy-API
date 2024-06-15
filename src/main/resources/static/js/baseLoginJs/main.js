@@ -116,7 +116,7 @@
 		
 		$(this).mask(mask, {
     		onKeyPress : function(cgc, e, field, options) {
-    			const masks = ['000.000.000-00', '00.000.000/0000-00'];
+    			const masks = ['000.000.000-000', '00.000.000/0000-00'];
     			const mask = (cgc.length > 14) ? masks[1] : masks[0];
     			$('#cgc').mask(mask, options);
   			}

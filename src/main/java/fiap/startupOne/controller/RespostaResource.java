@@ -57,7 +57,7 @@ public class RespostaResource {
 			
 			for (int j = 0; j < form.getRespostas().get(i).getPergunta().getFormulario().getPilarESG().size(); j++) {
 		    	
-		    	RankPilarESG rankPilarESG = RankESGUtil.getRankESG(rankPilarESGRepository, form.getRespostas().get(i).getUsuario(), null, form.getRespostas().get(i).getPergunta().getFormulario().getPilarESG().get(j));
+		    	RankPilarESG rankPilarESG = RankESGUtil.getRankESG(rankPilarESGRepository, form.getRespostas().get(i).getUsuario(), form.getRespostas().get(i).getPergunta().getFormulario().getFornecedor(), form.getRespostas().get(i).getPergunta().getFormulario().getPilarESG().get(j));
 		    	
 		    	if ( antigaResposta != null ) {
 		    		rankPilarESG.removePontos(antigaResposta.getPontos());
