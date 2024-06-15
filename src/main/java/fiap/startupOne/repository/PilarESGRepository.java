@@ -10,6 +10,7 @@ import fiap.startupOne.model.Usuario;
 
 @Repository
 public interface PilarESGRepository extends JpaRepository<PilarESG, Integer>{
+	
 	List<PilarESG> findByUsuario(Usuario usuario);
 
 }

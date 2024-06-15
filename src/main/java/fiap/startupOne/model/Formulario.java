@@ -2,27 +2,25 @@ package fiap.startupOne.model;
 
 import java.util.List;
 
+
 import org.springframework.validation.annotation.Validated;
 
 import jakarta.annotation.Nonnull;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 
 import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.annotation.Nullable;
-import jakarta.validation.constraints.Null;
 
 @Entity
 @Validated
@@ -40,12 +38,9 @@ public class Formulario {
 	@Nullable
 	private String descricao;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	private List<PilarESG> pilarESG;
-	
-	@ManyToMany(cascade = CascadeType.ALL)
-	private List<Pergunta> perguntas;
-	
+		
 	@ManyToOne
 	@Nullable
 	private Usuario usuario;
@@ -58,7 +53,7 @@ public class Formulario {
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate emissao;
 	
-	@Null
+	@Nullable
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate finalizacao;
 
@@ -77,14 +72,6 @@ public class Formulario {
 		return finalizacao;
 	}
 	
-	
-	public void setPerguntas(List<Pergunta> perguntas) {
-		this.perguntas = perguntas;
-	}
-	
-	public List<Pergunta> getPerguntas() {
-		return perguntas;
-	}
 	
 	public void setResponsavel(Usuario responsavel) {
 		this.responsavel = responsavel;
@@ -116,14 +103,6 @@ public class Formulario {
 	
 	public String getNome() {
 		return nome;
-	}
-	
-	public void setPergunta(List<Pergunta> perguntas) {
-		this.perguntas = perguntas;
-	}
-	
-	public List<Pergunta> getPergunta() {
-		return perguntas;
 	}
 	
 	public void setPilarESG(List<PilarESG> pilarESG) {

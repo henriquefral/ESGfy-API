@@ -22,7 +22,7 @@
 					<tr>
 		  				<td th:text="${fornecedor.nome}"></td>
 			  			<td th:text="${fornecedor.razaoSocial}"></td>
-			  			<td th:text="${fornecedor.cgc}"></td>
+			  			<td class="cgc" th:text="${fornecedor.cgc}"></td>
 			  			<td>
 							<a th:href="@{/fornecedor/alterar/}+${fornecedor.codigo}"   class="btn btn-primary btn-xs">Alterar</a>
 							<a th:href="@{/fornecedor/excluir/}+${fornecedor.codigo}"   class="btn btn-danger  btn-xs">Excluir</a>

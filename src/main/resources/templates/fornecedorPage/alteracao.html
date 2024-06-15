@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 	<head>
-		<title>Objetivos</title>
+		<title>Fornecedores</title>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css"  th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
@@ -28,7 +28,7 @@
 						</div>
 						
 						<span class="login100-form-title p-b-20">
-							Realize o cadastro do fornecedor!
+							Realize a alteração do fornecedor!
 						</span>
 						
 						
@@ -46,6 +46,14 @@
 							<input class="input100 cgc" th:field="*{cgc}" type="text" name="cgc">
 							<span class="focus-input100" data-placeholder="CPF/CNPJ"></span>
 						</div>
+						
+						<div class="d-none">
+							<input class="input100" name="codigo" type="text" th:value="${fornecedor.codigo}" >
+						</div>
+						
+						<div class="d-none">
+							<input class="input100" name="usuario" type="text" th:value="${fornecedor.usuario.codigo}" >
+						</div>
 							
 						<div class="container-login100-form-btn">
 							<div class="row">
@@ -54,7 +62,7 @@
 										<div class="login100-form-bgbtn">
 										</div>
 										<button class="login100-form-btn">
-											Cadastro
+											Alterar
 										</button>
 									</div>
 								</div>

@@ -23,6 +23,7 @@ import fiap.startupOne.model.Objetivo;
 import fiap.startupOne.model.Usuario;
 import fiap.startupOne.repository.ObjetivoRepository;
 import fiap.startupOne.repository.AcaoRepository;
+import fiap.startupOne.repository.PilarESGRepository;
 import jakarta.validation.Valid;
 
 @Controller
@@ -35,13 +36,10 @@ public class ObjetivoResource {
 	
 	@Autowired
 	private AcaoRepository acaoRepository;
-	   
-	@GetMapping
-	@ResponseBody
-	public List<Objetivo> listar(){
-		return objetivoRepository.findAll();
-	}
 	
+	@Autowired
+	private PilarESGRepository pilarESGRepository;
+	   	
 	@GetMapping("listaAcao/{codigo}")
 	public String telaAcoes(@PathVariable int codigo, Objetivo objetivo, Model model, RedirectAttributes redirectAttributes) {
 		
@@ -76,6 +74,8 @@ public class ObjetivoResource {
 		
 		model.addAttribute("objetivo", objetivo);
 		
+		model.addAttribute("pilaresESG", pilarESGRepository.findAll());
+		
 		return "objetivoPage/alteracao";
 	}
 	
@@ -108,6 +108,8 @@ public class ObjetivoResource {
 		
 		model.addAttribute("objetivo", objetivo);
 		
+		model.addAttribute("pilaresESG", pilarESGRepository.findAll());
+		
 		return "objetivoPage/exclusao";
 	}
 	
@@ -133,6 +135,8 @@ public class ObjetivoResource {
 			return "redirect:/usuario/login";
 		}
 		
+		model.addAttribute("pilaresESG", pilarESGRepository.findAll());
+		
 		return "objetivoPage/registro";
 	}
 	
@@ -152,7 +156,12 @@ public class ObjetivoResource {
 		return "redirect:/usuario/listaObjetivo";
 	}
 	
-
+	@GetMapping
+	@ResponseBody
+	public List<Objetivo> listar(){
+		return objetivoRepository.findAll();
+	}
+	
 	@GetMapping("{codigo}")
 	@ResponseBody
 	public Objetivo buscar(@PathVariable int codigo) {

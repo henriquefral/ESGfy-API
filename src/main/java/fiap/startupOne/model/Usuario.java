@@ -38,7 +38,7 @@ public class Usuario {
 	
 	@Nonnull
 	@NotBlank(message = "É preciso digitar o cadastro geral de contribuintes da empresa atual")
-	@Size(min = 14, max = 18, message = "Favor, ele deve ter 11 dígitos se for um CPF e 14 se for CNPJ")
+	@Size(min = 11, max = 14, message = "Favor, ele deve ter 11 dígitos se for um CPF e 14 se for CNPJ")
 	private String cgc;
 	
 	@Nonnull
@@ -78,17 +78,16 @@ public class Usuario {
 	}
 	
 	public void setCgc(String cgc) {
+		
+		cgc = cgc.replace(".", "");
+		cgc = cgc.replace("-", "");
+		cgc = cgc.replace("/", "");
+		
 		this.cgc = cgc;
 	}
 	
 	public String getCgc() {
 		return cgc;
-	}
-	
-	public void convertCgc() {
-		setCgc(this.cgc.replace(".", ""));
-		setCgc(this.cgc.replace("-", ""));
-		setCgc(this.cgc.replace("/", ""));
 	}
 	
 	public void setEmail(String email) {

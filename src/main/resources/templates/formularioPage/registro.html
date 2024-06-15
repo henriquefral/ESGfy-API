@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 	<head>
-		<title>Objetivos</title>
+		<title>Formulários</title>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css"  th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
@@ -21,72 +21,43 @@
 				<div class="wrap-login100">
 					<div class="alert alert-danger"  th:if="${msgE!=null}" th:text="${msgE}"></div>
 					<div class="alert alert-success" th:if="${msg!=null}"  th:text="${msg}" ></div>
-					<form th:action="@{/objetivo/criar}" th:object="${objetivo}" class="login100-form validate-form" method="post">
+					<form th:action="@{/formulario/criar}" th:object="${formulario}" class="login100-form validate-form" method="post">
 					
 						<div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
 							<p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
 						</div>
 						
 						<span class="login100-form-title p-b-20">
-							Realize o cadastro do objetivo!
+							Realize o cadastro do formulário!
 						</span>
 						
 						<div class="row p-t-20">
 							<div class="col p-x-5">
-								<div class="wrap-input100 validate-input" data-validate = "Digite o nome do objetivo!">
+								<div class="wrap-input100 validate-input" data-validate = "Digite o nome do formulario!">
 									<input class="input100" th:field="*{nome}" type="text" name="nome">
 									<span class="focus-input100" data-placeholder="Nome"></span>
 								</div>
 							</div>
-							<div class="col p-x-5">
-								<div class="wrap-input100 validate-input p-b-3" data-validate="Informe os pontos!">
-									<input class="input100" th:field="*{pontos}" type="number" name="pontos">
-									<span class="focus-input100" data-placeholder="Pontos"></span>
-								</div>
-							</div>
-						</div>
-	
-						<div class="wrap-input100 validate-input p-b-3" data-validate="Digite uma breve descrição!">
-							<textArea class="input100" th:field="*{descricao}" name="descricao"></textArea>
-							<span class="focus-input100" data-placeholder="Descricao"></span>
-						</div>
-						
-						<div class="row">
-							<div class="col p-x-5">
-								<div class="wrap-input100 validate-input p-b-3" data-validate="Informe a UM!">
-									<input class="input100" th:field="*{unidadeDeMedida}" type="text" name="unidadeDeMedida">
-									<span class="focus-input100" data-placeholder="Unidade de medida"></span>
-								</div>
-							</div>
-							<div class="col p-x-5">
-								<div class="wrap-input100 validate-input p-b-3" data-validate="Informe a quantidade!">
-									<input class="input100" th:field="*{quantidade}" type="number" name="quantidade">
-									<span class="focus-input100" data-placeholder="Quantidade"></span>
-								</div>
-							</div>
-						</div>
-
-						<div class="row">
 							<div class="col p-x-5">
 								<div class="wrap-input100 validate-input p-b-3" data-validate="Informe a emissão!">
 								    <input class="input100 has-val" th:value="${#temporals.format(localDate, 'dd-MM-yyyy')}" type="date" name="emissao">
 									<span class="focus-input100" data-placeholder="Emissão"></span>
 								</div>
 							</div>
-							<div class="col p-x-5">
-								<div class="wrap-input100 validate-input p-b-3" data-validate="Informe a prev. de término!">
-									<input class="input100 has-val" th:field="*{previsaoTermino}" type="date" name="previsaoTermino">
-									<span class="focus-input100" data-placeholder="Previsão de término"></span>
-								</div>
-							</div>
 						</div>
+	
+						<div class="wrap-input100 validate-input" data-validate="Digite uma breve descrição!">
+							<textArea class="input100" th:field="*{descricao}" name="descricao"></textArea>
+							<span class="focus-input100-area" data-placeholder="Descricao"></span>
+						</div>
+
 						<div class="row">
-							<div class="col-4 p-x-5 pb-2 labelcheckbox" data-validate="Informe ao menos um pilar ESG!">
+							<div class="col-4 p-x-5 pb-2 login200-form-title labelcheckbox" data-validate="Informe ao menos um pilar ESG!">
 								Pilares ESG:
 							</div>
 						</div>
 						
-						<div class="row w-100 form-check form-check-inline validate-input pb-2">
+						<div class="row w-100 form-check form-check-inline validate-input pb-1">
 							<th:block th:each="pilarESG : ${pilaresESG}">
 								<div class="col p-x-5">
 									<input  type="checkbox" name="pilarESG" class="form-check-input"
@@ -99,7 +70,7 @@
 								</div> 
 							</th:block>
 						</div>
-						
+											
 						<div class="d-none">
 							<input class="input100" name="responsavel" type="text" th:value="${usuario.codigo}" >
 						</div>
@@ -119,7 +90,7 @@
 									<div class="wrap-login100-form-btn">
 										<div class="login100-form-bgbtn">
 										</div>
-										<a class="login100-form-btn" th:href="@{/usuario/listaObjetivo}"> Cancelar </a>
+										<a class="login100-form-btn" th:href="@{/usuario/listaFormulario}"> Cancelar </a>
 									</div>
 								</div>
 							</div>

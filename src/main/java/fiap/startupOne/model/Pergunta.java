@@ -22,6 +22,9 @@ public class Pergunta {
 	private int codigo;
 	
 	@Nonnull
+	private int item;
+	
+	@Nonnull
 	@NotBlank(message = "É preciso digitar um título para a pergunta")
 	private String titulo;
 	
@@ -38,6 +41,10 @@ public class Pergunta {
 	@ManyToOne
 	@Nullable
 	private Usuario usuario;
+	
+	@ManyToOne
+	@Nullable
+	private Formulario formulario;
 	
 	@Nullable
 	private String regra;
@@ -98,4 +105,19 @@ public class Pergunta {
 		return regra;
 	}
 	
+	public int getItem() {
+		return item;
+	}
+	
+	public void setItem(int item) {
+		this.item = item;
+	}
+	
+	public Formulario getFormulario() {
+		return formulario;
+	}
+	
+	public void setFormulario(Formulario formulario) {
+		this.formulario = formulario;
+	}	
 }

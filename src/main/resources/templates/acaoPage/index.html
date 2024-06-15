@@ -7,7 +7,7 @@
 </head>
 <body>
 	<div class="container-fluid p-t-10" layout:fragment="conteudo">
-		<h1 class="title p-y-10" >Ações</h1>
+		<h1 class="title p-y-10" th:text="'Ações para o objetivo '+${objetivo.nome}"></h1>
     	<a class="h5 btn btn-outline-dark" type="button" th:if="${objetivo.quantidade > objetivo.quantidadeEntregue}" th:href="@{/acao/criar/}+${objetivo.codigo}">Incluir</a>
 		<div class="alert alert-danger"  th:if="${msgE!=null}" th:text="${msgE}"></div>
 		<div class="alert alert-success" th:if="${msg!=null}"  th:text="${msg}" ></div>

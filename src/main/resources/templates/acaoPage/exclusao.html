@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 	<head>
-		<title>Objetivos</title>
+		<title>Ações</title>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css"  th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
@@ -52,7 +52,7 @@
 						</div>
 												
 						<div class="d-none">
-							<input class="input100" name="responsavel" type="text" th:value="${usuario.codigo}" >
+							<input class="input100" name="responsavel" type="text" th:value="${acao.responsavel.codigo}" >
 						</div>
 						
 						<div class="d-none">

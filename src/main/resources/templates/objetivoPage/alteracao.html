@@ -81,6 +81,26 @@
 							</div>
 						</div>
 						
+						<div class="row">
+							<div class="col-4 p-x-5 pb-2 labelcheckbox" data-validate="Informe ao menos um pilar ESG!">
+								Pilares ESG:
+							</div>
+						</div>
+						
+						<div class="row w-100 form-check form-check-inline validate-input pb-2">
+							<th:block th:each="pilarESG : ${pilaresESG}">
+								<div class="col p-x-5">
+									<input  type="checkbox" name="pilarESG" class="form-check-input"
+									    	th:value="${pilarESG.codigo}"
+											th:field="*{pilarESG}"
+											th:id="${'checkPilarESG'+pilarESG.codigo}"
+									/>
+									<label class="form-check-label" th:for="${'checkPilarESG'+pilarESG.codigo}" th:text="${pilarESG.nome}">
+	  								</label>
+								</div> 
+							</th:block>
+						</div>
+						
 						<div class="d-none">
 							<input class="input100" name="responsavel" type="text" th:value="${objetivo.responsavel.codigo}" >
 						</div>

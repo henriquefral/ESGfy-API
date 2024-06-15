@@ -104,13 +104,25 @@
         
     });
     
-    $('.cgc').mask('000.000.000-00', {
-    	onKeyPress : function(cgc, e, field, options) {
-    		const masks = ['000.000.000-000', '00.000.000/0000-00'];
-    		const mask = (cgc.length > 14) ? masks[1] : masks[0];
-    		$('#cgc').mask(mask, options);
-  		}
-	});
+	$('.cgc').each(function(){
+		
+		var mask = "";
+		
+        if ( $(this).text().length > 11 ) {
+			mask = "00.000.000/0000-00";
+		} else {
+			mask = "000.000.000-000";
+		}
+		
+		$(this).mask(mask, {
+    		onKeyPress : function(cgc, e, field, options) {
+    			const masks = ['000.000.000-00', '00.000.000/0000-00'];
+    			const mask = (cgc.length > 14) ? masks[1] : masks[0];
+    			$('#cgc').mask(mask, options);
+  			}
+		});
+		
+    });
 
 
 })(jQuery);

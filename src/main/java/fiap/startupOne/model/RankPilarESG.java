@@ -1,6 +1,7 @@
 package fiap.startupOne.model;
 import org.springframework.validation.annotation.Validated;
 
+import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,6 +20,7 @@ public class RankPilarESG {
 	private int codigo;
 	
 	@ManyToOne
+	@Nonnull
 	private PilarESG pilarESG;
 	
 	private int pontos;
@@ -34,7 +36,7 @@ public class RankPilarESG {
 	public void setCodigo(int codigo) {
 		this.codigo = codigo;
 	}
-	
+		
 	public int getCodigo() {
 		return codigo;
 	}
@@ -69,5 +71,13 @@ public class RankPilarESG {
 	
 	public Fornecedor getFornecedor() {
 		return fornecedor;
+	}
+	
+	public void somaPontos(int pontos) {
+		this.pontos += pontos;
+	}
+	
+	public void removePontos(int pontos) {
+		this.pontos -= pontos;
 	}
 }

@@ -212,6 +212,17 @@ iframe {
   line-height: 1.2;
   text-align: center;
 }
+
+.login200-form-title {
+  display: block;
+  font-family: Poppins-Bold;
+  font-size: 20px;
+  color: #333333;
+  line-height: 1.2;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 .login100-form-title i {
   font-size: 60px;
 }
@@ -298,17 +309,10 @@ iframe {
   top: -15px;
 }
 
-textarea + .has-val.input100 + .focus-input100::after {
-  top: -25px;
-}
 
-.has-val.input100 + .focus-input100::after {
-  top: -15px;
+.focus-input100-area + .focus-input100::after {
+  top: -20px;
 }
-
-textarea + .has-val.input100 + .focus-input100::after {
-  top: -25px;
-} 
 
 .has-val.input100 + .focus-input100::before {
   width: 100%;

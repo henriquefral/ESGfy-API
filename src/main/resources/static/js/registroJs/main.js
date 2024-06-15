@@ -7,7 +7,7 @@
     [ Focus input ]*/
     $('.input100').each(function(){
         $(this).on('blur', function () {
-			if($(this).val().trim() != "" || input.attr(type) == "date") {
+			if($(this).val().trim() != "" || input.attr("type") == "date") {
         		$(this).addClass('has-val');
         	}
         	else {
@@ -43,13 +43,19 @@
 
     $('.validate-form').on('submit',function(){
         var check = true;
-
+                
         for(var i=0; i<input.length; i++) {
             if(validate(input[i]) == false){
                 showValidate(input[i]);
                 check=false;
             }
         }
+        
+        if ( $('.form-check-input').length > 0 && $('.form-check-input:checked').length < 1 ) {
+			
+			$('.labelcheckbox').addClass('alert-validate');
+			check=false;
+		}
 
         return check;
     });
@@ -60,6 +66,7 @@
            hideValidate(this);
         });
     });
+   
 
     function validate (input) {
         if($(input).attr('type') == 'email' || $(input).attr('name') == 'email') {
@@ -105,13 +112,28 @@
         
     });
     
-    $('.cgc').mask('000.000.000-00', {
-    	onKeyPress : function(cgc, e, field, options) {
-    		const masks = ['000.000.000-000', '00.000.000/0000-00'];
-    		const mask = (cgc.length > 14) ? masks[1] : masks[0];
-    		$('#cgc').mask(mask, options);
-  		}
-	});
+
+	$('.cgc').each(function(){
+		
+		var mask = "";
+		
+		console.log($(this).val().length);
+				
+        if ( $(this).val().length > 11 ) {
+			mask = "00.000.000/0000-00";
+		} else {
+			mask = "000.000.000-000";
+		}
+		
+		$(this).mask(mask, {
+    		onKeyPress : function(cgc, e, field, options) {
+    			const masks = ['000.000.000-000', '00.000.000/0000-00'];
+    			const mask = (cgc.length > 14) ? masks[1] : masks[0];
+    			$('#cgc').mask(mask, options);
+  			}
+		});
+		
+    });
 
 
 })(jQuery);

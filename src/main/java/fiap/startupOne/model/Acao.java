@@ -2,8 +2,6 @@ package fiap.startupOne.model;
 
 import java.time.LocalDate;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.validation.annotation.Validated;
